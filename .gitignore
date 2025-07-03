@@ -39,3 +39,7 @@
 
 # debug information files
 *.dwo
+CMakePresets.json
+CMakeUserPresets.json
+out/
+build/
