@@ -43,3 +43,17 @@ CMakePresets.json
 CMakeUserPresets.json
 out/
 build/
+CMakeLists.txt.user
+CMakeLists.txt.user
+.vs/CMake Overview
+.vs/cmake.db
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+.vs/3DViewner/v16/.suo
+.vs/3DViewner/v16/Browse.VC.db
+.vs/3DViewner/v16/Browse.VC.db-shm
+.vs/3DViewner/v16/Browse.VC.db-wal
+.vs/3DViewner/v16/Browse.VC.opendb
+.vs/3DViewner/v16/ipch/AutoPCH/1942022cce9a1073/APPWINDOW.ipch
+.vs/3DViewner/v16/ipch/AutoPCH/77477cbfc0012df5/QT3DVIEW.ipch
+.vs/3DViewner/v16/ipch/AutoPCH/8abce0c8cb0fc2bb/MAIN.ipch

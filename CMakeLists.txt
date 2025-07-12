@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(3DViewner VERSION 1.0.0 LANGUAGES CXX)
 
 # 设置C++标准
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17) 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # 设置自动生成的文件的输出目录
@@ -17,7 +17,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 # 查找Qt包
-find_package(Qt5 COMPONENTS Core Gui Widgets 3DCore 3DRender 3DExtras 3DInput 3DLogic REQUIRED)
+find_package(Qt6 COMPONENTS Core Gui Widgets 3DCore 3DRender 3DExtras 3DInput 3DLogic REQUIRED)
 
 # 设置源文件
 set(SOURCES
@@ -71,14 +71,14 @@ target_include_directories(3DViewner PRIVATE
 
 # 链接Qt库
 target_link_libraries(3DViewner PRIVATE
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
-    Qt5::3DCore
-    Qt5::3DRender
-    Qt5::3DExtras
-    Qt5::3DInput
-    Qt5::3DLogic
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
+    Qt6::3DCore
+    Qt6::3DRender
+    Qt6::3DExtras
+    Qt6::3DInput
+    Qt6::3DLogic
 )
 
 # Windows特定设置

@@ -12,10 +12,6 @@
 #include <QStatusBar>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <QDockWidget>
-#include <QPlainTextEdit>
-#include <QScrollBar>
-#include <QDateTime>
 #include <QFileInfo>
 #include <QMimeData>
 #include <QDragEnterEvent>
@@ -24,6 +20,7 @@
 #include <QFile>
 #include <QApplication>
 #include <QScreen>
+#include <QTimer>
 
 AppWindow::AppWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -81,6 +78,12 @@ AppWindow::AppWindow(QWidget *parent)
     
     // Output initialization completion information
     Logger::instance().info("Application initialized successfully");
+    
+    // 确保视图能够接收键盘事件
+    if (m_view) {
+        m_view->setFocus();
+        qDebug() << "Set focus to Qt3DView for camera controls";
+    }
 }
 
 AppWindow::~AppWindow()
@@ -258,6 +261,15 @@ bool AppWindow::loadModelFromFile(const QString& filePath)
     statusBar()->showMessage(tr("Model loaded: %1").arg(fileInfo.fileName()), 5000);
     Logger::instance().info(QString("Model loaded: %1").arg(filePath));
     
+    // 自动适应视图，使模型完全可见
+    if (m_view) {
+        // 延迟调用fitToView，确保模型已经完全加载
+        QTimer::singleShot(100, [this]() {
+            m_view->fitToView();
+            qDebug() << "Auto fit to view after model loading";
+        });
+    }
+    
     return true;
 }
 
@@ -272,4 +284,31 @@ bool AppWindow::isSupportedModelFile(const QString& filePath)
     };
     
     return supportedFormats.contains(suffix);
+} 
+
+void AppWindow::keyPressEvent(QKeyEvent *event)
+{
+    qDebug() << "AppWindow received key press:" << event->key() << "text:" << event->text();
+    
+    // 如果是相机控制相关的按键，直接传递给视图
+    if (event->key() == Qt::Key_T || event->key() == Qt::Key_F || 
+        event->key() == Qt::Key_L || event->key() == Qt::Key_P || 
+        event->key() == Qt::Key_Home) {
+        
+        if (m_view) {
+            qDebug() << "Forwarding key event to Qt3DView";
+            m_view->setFocus();
+            QApplication::sendEvent(m_view, event);
+            return;
+        }
+    }
+    
+    // 对于其他按键，使用默认处理
+    QMainWindow::keyPressEvent(event);
+}
+
+void AppWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    qDebug() << "AppWindow received key release:" << event->key();
+    QMainWindow::keyReleaseEvent(event);
 } 

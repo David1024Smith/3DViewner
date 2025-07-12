@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QUrl>
 #include <QString>
+#include <QKeyEvent>
 
 namespace Qt3DCore {
     class QEntity;
@@ -28,6 +29,10 @@ protected:
     // Drag and drop event handling
     void dragEnterEvent(QDragEnterEvent* event) override;
     void dropEvent(QDropEvent* event) override;
+    
+    // 键盘事件处理
+    void keyPressEvent(QKeyEvent *event) override;
+    void keyReleaseEvent(QKeyEvent *event) override;
 
 private slots:
     void openFile();
